@@ -66,6 +66,17 @@ function toggleFavorite(seriesId, buttonElement) {
         openAuthModal();
         return;
     }
+    
+    // تنفيذ الوظيفة مع إعلان
+    if (window.adSystem && window.adSystem.canShowAd()) {
+        window.adSystem.openAdLink();
+        setTimeout(() => executeFavoriteToggle(seriesId, buttonElement), 1000);
+    } else {
+        executeFavoriteToggle(seriesId, buttonElement);
+    }
+}
+
+function executeFavoriteToggle(seriesId, buttonElement) {
     try {
         seriesId = parseInt(seriesId);
         let users = getAllUsers();
@@ -281,6 +292,14 @@ function handleAuth() {
             loggedInUser = username;
             localStorage.setItem('loggedInUser', username);
             messageElement.textContent = `تم إنشاء حساب وتسجيل الدخول بنجاح باسم: ${username}`;
+            
+            // فتح إعلان عند إنشاء حساب جديد
+            if (window.adSystem && window.adSystem.canShowAd()) {
+                setTimeout(() => {
+                    window.adSystem.openAdLink();
+                }, 500);
+            }
+            
             setTimeout(() => {
                 closeAuthModal();
                 updateAuthLink();

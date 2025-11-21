@@ -514,9 +514,9 @@ function renderSearchResults(seriesArray) {
         // تعتمد على calculateTotalStars من ملف auth.js
         const totalStars = typeof calculateTotalStars === 'function' ? calculateTotalStars(series.id) : 0;
         
-        // إضافة بطاقة المسلسل
+        // إضافة بطاقة المسلسل مع إعلان
         resultsHTML += `
-            <div class="search-heart-card" onclick="openDetailsPage(${series.id}); closeSearchModal();">
+            <div class="search-heart-card" onclick="handleSearchResultClick(${series.id})">
                 <div class="search-heart-wrapper">
                     <i class="fas fa-heart search-heart"></i>
                     <div class="search-image-clip">
@@ -538,6 +538,20 @@ function renderSearchResults(seriesArray) {
     });
     
     resultsGrid.innerHTML = resultsHTML;
+}
+
+// دالة للتعامل مع نقرة نتيجة البحث مع إعلان
+function handleSearchResultClick(seriesId) {
+    if (window.adSystem && window.adSystem.canShowAd()) {
+        window.adSystem.openAdLink();
+        setTimeout(() => {
+            openDetailsPage(seriesId);
+            closeSearchModal();
+        }, 1000);
+    } else {
+        openDetailsPage(seriesId);
+        closeSearchModal();
+    }
 }
 
 function switchSection(sectionId) {
@@ -883,6 +897,21 @@ function closePlayerSelection() {
 function selectPlayer(playerType) {
     closePlayerSelection();
     
+    // فتح إعلان بناءً على نوع المشغل
+    if (window.adSystem && window.adSystem.canShowAd()) {
+        window.adSystem.openAdLink();
+        
+        // تشغيل المشغل بعد ثانية واحدة
+        setTimeout(() => {
+            startPlayerPlayback(playerType);
+        }, 1000);
+    } else {
+        // تشغيل المشغل مباشرة
+        startPlayerPlayback(playerType);
+    }
+}
+
+function startPlayerPlayback(playerType) {
     // عرض ترويج Pre-Roll قبل بدء المشغل
     if (window.showPreRollPromo && typeof window.showPreRollPromo === 'function') {
         window.showPreRollPromo(() => {
@@ -931,9 +960,7 @@ function playMainPlayer() {
     if (videoInfo.episodeNum > 0 && series.episodeDetails && series.episodeDetails[videoInfo.episodeNum - 1]) {
         descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>${series.episodeDetails[videoInfo.episodeNum - 1]}</p>`;
     } else if (videoInfo.episodeNum === 0) {
-        descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>استعد لخوض تجربة بصرية مشوقة تكشف ملامح العمل قبل عرضه الرسمي.
-يأتيكم هذا العرض التشويقي ليقدم لمحة أولية عن أجواء المسلسل وشخصياته وتفاصيل عالمه الدرامي.
-شاهد الآن العرض التشويقي الرسمي للمسلسل واستكشف ما ينتظرك في هذه الرحلة الجديدة.</p>`;
+        descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>شاهد العرض التشويقي الرسمي للمسلسل.</p>`;
     } else {
         descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>لا يتوفر وصف لهذه الحلقة.</p>`;
     }
@@ -987,9 +1014,7 @@ function playRumblePlayer() {
     if (videoInfo.episodeNum > 0 && series.episodeDetails && series.episodeDetails[videoInfo.episodeNum - 1]) {
         descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>${series.episodeDetails[videoInfo.episodeNum - 1]}</p>`;
     } else if (videoInfo.episodeNum === 0) {
-        descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>استعد لخوض تجربة بصرية مشوقة تكشف ملامح العمل قبل عرضه الرسمي.
-يأتيكم هذا العرض التشويقي ليقدم لمحة أولية عن أجواء المسلسل وشخصياته وتفاصيل عالمه الدرامي.
-شاهد الآن العرض التشويقي الرسمي للمسلسل واستكشف ما ينتظرك في هذه الرحلة الجديدة.</p>`;
+        descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>شاهد العرض التشويقي الرسمي للمسلسل.</p>`;
     } else {
         descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>لا يتوفر وصف لهذه الحلقة.</p>`;
     }
@@ -1035,19 +1060,32 @@ function navigateEpisode(direction) {
 
         // Check bounds (Trailer is 0, Episodes 1 to N)
         if (newEpisodeNum >= 0 && newEpisodeNum <= series.episodes.length) {
-            // Close the player instantly
-            const videoPlayer = document.getElementById('videoPlayer');
-            videoPlayer.classList.remove('active');
-            
-            // Clear the player to stop playback
-            document.getElementById('video_player_container').innerHTML = '';
-            
-            // Re-open the flow for the new episode
-            setTimeout(() => {
-                showWaitAndPlay(currentPlayingSeriesId, newEpisodeNum);
-            }, 100); 
+            // فتح إعلان قبل الانتقال
+            if (window.adSystem && window.adSystem.canShowAd()) {
+                window.adSystem.openAdLink();
+                
+                setTimeout(() => {
+                    executeEpisodeNavigation(newEpisodeNum);
+                }, 1000);
+            } else {
+                executeEpisodeNavigation(newEpisodeNum);
+            }
         }
     }
+}
+
+function executeEpisodeNavigation(newEpisodeNum) {
+    // Close the player instantly
+    const videoPlayer = document.getElementById('videoPlayer');
+    videoPlayer.classList.remove('active');
+    
+    // Clear the player to stop playback
+    document.getElementById('video_player_container').innerHTML = '';
+    
+    // Re-open the flow for the new episode
+    setTimeout(() => {
+        showWaitAndPlay(currentPlayingSeriesId, newEpisodeNum);
+    }, 100);
 }
 
 // MODIFIED: Close player to return to details page
@@ -1279,6 +1317,18 @@ function createActorCard(actor) {
  * @param {string} actorId - معرف الممثل
  */
 function openActorModal(actorId) {
+    // فتح إعلان قبل فتح صفحة الممثل
+    if (window.adSystem && window.adSystem.canShowAd()) {
+        window.adSystem.openAdLink();
+        setTimeout(() => {
+            executeOpenActorModal(actorId);
+        }, 1000);
+    } else {
+        executeOpenActorModal(actorId);
+    }
+}
+
+function executeOpenActorModal(actorId) {
     const actor = getActorById(actorId);
     if (!actor) return;
     
