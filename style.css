@@ -1,0 +1,4214 @@
+/* ================================================= */
+/* 1. الترتيب والأساسيات (Dark & Romantic Theme)    */
+/* ================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+:root {
+    --primary: #E60023; /* أحمر ساطع - اللون الافتراضي */
+    --primary-light: #FFD700; /* ذهبي براق للتفاصيل والأيقونات */
+    --secondary: #0a0a0a; 
+    --bg-body: #121212; 
+    --bg-card: #1e1e1e; 
+    --text-dark: #e0e0e0; 
+    --text-light: #ffffff; 
+    --text-gray: #b0b0b0; 
+    --card-radius: 15px; 
+    --shadow-subtle: rgba(0, 0, 0, 0.4);
+    --shadow-focus: rgba(230, 0, 35, 0.6); 
+}
+
+/* الألوان الأساسية القابلة للتغيير (30 لونًا) */
+.theme-default { --primary: #E60023; --shadow-focus: rgba(230, 0, 35, 0.6); }
+.theme-red-wine { --primary: #800020; --shadow-focus: rgba(128, 0, 32, 0.6); }
+.theme-deep-sky-blue { --primary: #00BFFF; --shadow-focus: rgba(0, 191, 255, 0.6); }
+.theme-lime-green { --primary: #32CD32; --shadow-focus: rgba(50, 205, 50, 0.6); }
+.theme-indigo { --primary: #4B0082; --shadow-focus: rgba(75, 0, 130, 0.6); }
+.theme-dark-orange { --primary: #FF8C00; --shadow-focus: rgba(255, 140, 0, 0.6); }
+.theme-hot-pink { --primary: #FF69B4; --shadow-focus: rgba(255, 105, 180, 0.6); }
+.theme-turquoise { --primary: #40E0D0; --shadow-focus: rgba(64, 224, 208, 0.6); }
+.theme-sienna { --primary: #A0522D; --shadow-focus: rgba(160, 82, 45, 0.6); }
+.theme-olive { --primary: #808000; --shadow-focus: rgba(128, 128, 0, 0.6); }
+.theme-maroon { --primary: #800000; --shadow-focus: rgba(128, 0, 0, 0.6); }
+.theme-navy { --primary: #000080; --shadow-focus: rgba(0, 0, 128, 0.6); }
+.theme-forest-green { --primary: #228B22; --shadow-focus: rgba(34, 139, 34, 0.6); }
+.theme-crimson { --primary: #DC143C; --shadow-focus: rgba(220, 20, 60, 0.6); }
+.theme-slate-blue { --primary: #6A5ACD; --shadow-focus: rgba(106, 90, 205, 0.6); }
+.theme-dark-goldenrod { --primary: #B8860B; --shadow-focus: rgba(184, 134, 11, 0.6); }
+.theme-medium-violet-red { --primary: #C71585; --shadow-focus: rgba(199, 21, 133, 0.6); }
+.theme-dark-cyan { --primary: #008B8B; --shadow-focus: rgba(0, 139, 139, 0.6); }
+.theme-firebrick { --primary: #B22222; --shadow-focus: rgba(178, 34, 34, 0.6); }
+.theme-peru { --primary: #CD853F; --shadow-focus: rgba(205, 133, 63, 0.6); }
+.theme-steel-blue { --primary: #4682B4; --shadow-focus: rgba(70, 130, 180, 0.6); }
+.theme-coral { --primary: #FF7F50; --shadow-focus: rgba(255, 127, 80, 0.6); }
+.theme-gold-yellow { --primary: #FFC72C; --shadow-focus: rgba(255, 199, 44, 0.6); }
+.theme-dark-magenta { --primary: #8B008B; --shadow-focus: rgba(139, 0, 139, 0.6); }
+.theme-sea-green { --primary: #2E8B57; --shadow-focus: rgba(46, 139, 87, 0.6); }
+.theme-chocolate { --primary: #D2691E; --shadow-focus: rgba(210, 105, 30, 0.6); }
+.theme-dark-slate-gray { --primary: #2F4F4F; --shadow-focus: rgba(47, 79, 79, 0.6); }
+.theme-rosy-brown { --primary: #BC8F8F; --shadow-focus: rgba(188, 143, 143, 0.6); }
+.theme-medium-purple { --primary: #9370DB; --shadow-focus: rgba(147, 112, 219, 0.6); }
+.theme-dark-red { --primary: #8B0000; --shadow-focus: rgba(139, 0, 0, 0.6); }
+.theme-dodger-blue { --primary: #1E90FF; --shadow-focus: rgba(30, 144, 255, 0.6); }
+
+/* تنسيق منتقي الألوان */
+.color-picker-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border 0.2s, transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.color-picker-button:hover {
+    transform: scale(1.1);
+}
+
+.color-picker-button.active {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 10px var(--primary-light);
+    transform: scale(1.15);
+}
+
+.color-picker-button i {
+    color: var(--text-light);
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.color-picker-button.active i {
+    opacity: 1;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg-body);
+    color: var(--text-dark);
+    line-height: 1.7;
+    direction: rtl;
+    text-align: right;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+
+/* ================================================= */
+/* 1.5. شريط البحث الاحترافي */
+/* ================================================= */
+.search-section {
+    padding: 30px 40px;
+    background: var(--bg-body);
+    border-bottom: 2px solid var(--secondary); 
+    display: flex;
+    justify-content: center;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    background: var(--bg-card);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 3px solid var(--primary); 
+    box-shadow: 0 5px 20px var(--shadow-subtle);
+}
+
+#seriesSearchInput {
+    flex-grow: 1;
+    padding: 15px 25px;
+    font-size: 18px;
+    color: var(--text-light);
+    background: var(--bg-card);
+    border: none;
+    outline: none;
+    font-family: 'Tajawal', sans-serif;
+}
+
+#seriesSearchInput::placeholder {
+    color: var(--text-gray);
+}
+
+#searchButton {
+    background: var(--primary);
+    color: var(--text-light);
+    padding: 0 25px;
+    font-size: 20px;
+    border: none;
+    transition: background 0.3s;
+}
+
+#searchButton:hover {
+    background: var(--primary-light);
+    color: var(--secondary);
+}
+
+#noResultsMessage {
+    display: none; 
+}
+
+/* ================================================= */
+/* 1.6. مودال نتائج البحث الجديد (لم يتغير) */
+/* ================================================= */
+
+.search-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 3000; 
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+    overflow-y: auto;
+}
+
+.search-modal-overlay.active {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.search-modal-content {
+    background: var(--bg-body);
+    width: 90%;
+    max-width: 1300px;
+    max-height: 90vh;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
+    padding: 30px;
+    border: 3px solid var(--primary); 
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.4s;
+}
+
+.search-modal-overlay.active .search-modal-content {
+    transform: scale(1);
+}
+
+.search-modal-title {
+    color: var(--primary-light);
+    font-size: 30px;
+    margin-bottom: 30px;
+    padding-right: 15px;
+    border-right: 4px solid var(--primary);
+    font-weight: 700;
+}
+
+.close-search-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    background: var(--primary);
+    color: var(--primary-light);
+    border: 2px solid var(--primary-light);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+.close-search-btn:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+.search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 20px; 
+}
+
+/* 1.7. تصميم قلب المسلسل لنتائج البحث (لم يتغير) */
+
+.search-heart-card {
+    background: none; 
+    box-shadow: none; 
+    overflow: visible; 
+    position: relative;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 180px; 
+    max-width: 200px; 
+    margin: 0 auto;
+}
+
+.search-heart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+}
+
+.search-heart-wrapper {
+    position: relative;
+    width: 180px; 
+    height: 180px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-heart {
+    position: absolute;
+    font-size: 180px; 
+    color: var(--primary);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+}
+
+.search-heart-card:hover .search-heart {
+    color: var(--primary-light);
+    transform: scale(1.05);
+}
+
+.search-image-clip {
+    position: absolute;
+    width: 75%; 
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 3px; 
+    clip-path: url(#search-heart-clip); /* تم إصلاحها لتبدو كالقلب عند استخدام الـ CSS clip-path */
+    z-index: 5;
+    border: 2px solid var(--primary-light); 
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.search-image-clip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.95);
+}
+
+.search-heart-info {
+    position: absolute;
+    bottom: -25px; 
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+}
+
+.search-heart-title {
+    font-size: 16px; 
+    font-weight: 700;
+    color: var(--primary-light);
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.search-heart-rating {
+    font-size: 14px; 
+    color: var(--text-gray);
+    font-weight: 500;
+}
+
+
+/* ================================================= */
+/* 3. الهيدر وتأثير العنوان المتحرك (لم يتغير) */
+/* ================================================= */
+
+header {
+    background: #000; 
+    color: white;
+    text-align: center;
+    padding: 180px 40px 130px; 
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.main-title-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    position: relative; 
+    max-width: 900px;
+    margin: 0 auto;
+    height: 90px;
+}
+
+#clickable-area {
+    display: flex;
+    gap: 20px; 
+    align-items: center;
+    position: relative; 
+    cursor: pointer;
+    z-index: 10;
+}
+
+.title-word {
+    font-size: 64px;
+    font-weight: 900;
+    padding: 0 5px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: color 0.5s ease-in-out, opacity 0.5s, transform 0.5s; 
+    user-select: none;
+}
+
+.color-primary-red { color: var(--primary) !important; }
+.color-white { color: white !important; }
+
+.hidden { 
+    opacity: 0 !important; 
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: scale(0.8) !important;
+}
+
+#clickable-heart {
+    font-size: 64px; 
+    color: var(--primary); 
+    cursor: pointer;
+    margin-right: -10px; 
+    transition: all 0.4s ease-in-out;
+    user-select: none;
+}
+
+#title-frame {
+    position: absolute;
+    width: 100%; 
+    height: 100%;
+    border: 4px solid var(--primary);
+    border-radius: 20px;
+    transform: scale(0); 
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 5; 
+    box-shadow: 0 0 15px var(--primary), inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ================================================= */
+/* 2. شريط التنقل (Navigation) - لم يتغير */
+/* ================================================= */
+nav {
+    background: var(--bg-card);
+    box-shadow: 0 2px 10px var(--shadow-subtle);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    height: 80px;
+}
+
+.logo {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--primary);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.nav-links {
+    /* الوضع الافتراضي (سطح المكتب) - يجب أن تكون مرئية */
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+/* تنسيق زر الحساب الجديد في الشريط العلوي */
+#accountButton {
+    font-size: 30px;
+    color: var(--primary-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+    transition: color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#accountButton:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+#accountButton i.material-icons {
+    font-size: 30px;
+}
+
+.nav-links a {
+    color: var(--text-gray);
+    font-weight: 700;
+    padding: 10px 18px;
+    border-radius: 6px;
+}
+
+.nav-links a:hover i {
+    color: var(--text-light);
+}
+
+/* تنسيق قسم الحساب في القائمة الجانبية - مدمج مع الحواف */
+.sidebar-account-section {
+    padding: 25px 0;
+    border: none;
+    margin-bottom: 10px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--secondary) 0%, rgba(22,22,22,0.8) 100%);
+    border-radius: 0 0 20px 20px;
+    margin: 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.sidebar-account-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+
+#accountButton {
+    font-size: 50px;
+    color: var(--primary-light);
+    background: none;
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    padding: 15px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+#accountButton:hover {
+    color: var(--primary);
+    background: var(--primary-light);
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+}
+
+.account-info {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.user-name {
+    color: var(--primary-light);
+    font-weight: 700;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.logout-btn {
+    background: var(--primary);
+    color: var(--text-light);
+    border: 2px solid var(--primary-light);
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background: var(--primary-light);
+    color: var(--secondary);
+    transform: translateY(-2px);
+}
+
+/* تنسيق زر تصفح المزيد من المسلسلات */
+.load-more-section {
+    text-align: center;
+    margin-top: 40px;
+    padding: 30px;
+}
+
+.load-more-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--text-light);
+    border: 3px solid var(--primary-light);
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.load-more-btn:hover {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    color: var(--secondary);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+}
+
+.load-more-btn i {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.load-more-btn:hover i {
+    transform: translateX(-5px);
+}
+
+/* تنسيق أزرار المشغلين */
+.player-selection-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 5000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.player-selection-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.player-selection-content {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 40px;
+    border: 3px solid var(--primary);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    transform: scale(0.9);
+    transition: transform 0.4s ease-in-out;
+}
+
+.player-selection-overlay.active .player-selection-content {
+    transform: scale(1);
+}
+
+.player-selection-content h2 {
+    color: var(--primary-light);
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.player-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.player-option-btn {
+    background: var(--primary);
+    color: var(--primary-light);
+    border: 3px solid var(--primary-light);
+    border-radius: 15px;
+    padding: 20px 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-option-btn:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+}
+
+.player-option-btn i {
+    font-size: 30px;
+}
+
+.close-player-selection {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary);
+    color: var(--primary-light);
+    border: 2px solid var(--primary-light);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.close-player-selection:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+.support-buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-dark);
+    font-weight: 700;
+    border: 1px solid var(--primary);
+}
+
+.support-buttons a:hover {
+    background: var(--primary);
+    color: var(--text-light);
+    transform: translateY(-2px);
+}
+
+.support-buttons a i {
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+/* تنسيق شريط حقوق الطبع والنشر */
+.footer-bar {
+    background: var(--secondary);
+    color: var(--text-gray);
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.menu-toggle {
+    display: none; 
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1001; 
+    order: -1;
+}
+.menu-toggle span {
+    width: 100%;
+    height: 3px;
+    background: var(--primary-light);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* ================================================= */
+/* 4. أقسام الصفحة (Section Styles) - لم يتغير */
+/* ================================================= */
+
+.container {
+    max-width: 1440px; 
+    margin: 0 auto;
+    padding: 70px 40px;
+}
+
+.section-title {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--primary-light);
+    margin-bottom: 55px;
+    border-right: 5px solid var(--primary);
+    padding-right: 15px;
+    display: inline-flex;
+}
+
+.series-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.series-card {
+    background: var(--bg-card);
+    border-radius: var(--card-radius);
+    box-shadow: 0 8px 30px var(--shadow-subtle);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 380px; 
+}
+
+.series-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.heart-shape-wrapper {
+    position: relative;
+    width: 90%; 
+    height: 90%; 
+    background: var(--bg-card);
+    border-radius: var(--card-radius);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--primary);
+}
+
+.heart-shape-wrapper::before,
+.heart-shape-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: var(--bg-card);
+    border-radius: 50% 50% 0 0;
+    left: 0;
+    transform-origin: bottom center;
+    z-index: 1;
+}
+.heart-shape-wrapper::before {
+    top: -25%;
+    left: -25%;
+    transform: rotate(-45deg);
+}
+.heart-shape-wrapper::after {
+    top: -25%;
+    right: -25%;
+    transform: rotate(45deg);
+}
+
+
+.series-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.series-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.series-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px; 
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: white;
+    text-align: right;
+    z-index: 3;
+}
+
+.series-title {
+    font-size: 20px; 
+    font-weight: 800;
+    color: var(--primary-light);
+}
+.series-title-en {
+    color: var(--text-gray);
+    font-size: 14px; 
+}
+.series-meta {
+    color: var(--text-gray);
+    font-size: 13px; 
+}
+
+/* ========== تصميم البطاقات الترويجية ========== */
+
+.promo-card {
+    position: relative;
+    animation: promoGlow 3s ease-in-out infinite;
+}
+
+@keyframes promoGlow {
+    0%, 100% {
+        box-shadow: 0 8px 30px rgba(230, 0, 35, 0.3);
+    }
+    50% {
+        box-shadow: 0 8px 40px rgba(230, 0, 35, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
+    }
+}
+
+.promo-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 20px 60px rgba(230, 0, 35, 0.7), 0 0 40px rgba(255, 215, 0, 0.5);
+}
+
+.promo-card .heart-shape-wrapper {
+    border: 2px solid var(--primary);
+    background: linear-gradient(135deg, rgba(230, 0, 35, 0.05) 0%, var(--bg-card) 100%);
+}
+
+.promo-image {
+    filter: brightness(0.6) saturate(1.3);
+    transition: all 0.5s ease;
+}
+
+.promo-card:hover .promo-image {
+    filter: brightness(0.8) saturate(1.5);
+    transform: scale(1.15);
+}
+
+.promo-badge {
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.promo-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(230, 0, 35, 0.3) 100%);
+    padding: 25px 20px !important;
+}
+
+.promo-icon {
+    font-size: 40px;
+    color: var(--primary);
+    margin-bottom: 10px;
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.promo-description {
+    color: var(--text-light);
+    font-size: 14px;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.promo-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--primary) 0%, #ff6b00 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(230, 0, 35, 0.4);
+    transition: all 0.3s ease;
+}
+
+.promo-card:hover .promo-cta {
+    transform: translateX(-5px);
+    box-shadow: 0 6px 20px rgba(230, 0, 35, 0.6);
+}
+
+/* تصميم متجاوب للبطاقات الترويجية */
+@media (max-width: 768px) {
+    .promo-icon {
+        font-size: 35px;
+    }
+    
+    .promo-description {
+        font-size: 13px;
+    }
+    
+    .promo-cta {
+        font-size: 13px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .promo-icon {
+        font-size: 30px;
+    }
+    
+    .promo-description {
+        font-size: 12px;
+    }
+    
+    .promo-cta {
+        font-size: 12px;
+        padding: 7px 14px;
+    }
+}
+
+/* ========== نهاية تصميم البطاقات الترويجية ========== */
+
+.series-badge {
+    background: var(--primary-light);
+    color: var(--secondary);
+    border: 2px solid var(--primary);
+    border-radius: 6px; 
+    padding: 4px 10px; 
+    font-weight: 700;
+    position: absolute;
+    top: 15px; 
+    right: 15px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.series-badge .fa-star {
+    color: var(--primary);
+}
+
+.series-wishlist {
+    display: none !important;
+}
+
+
+/* ================================================= */
+/* 5. النافذة المنبثقة للتفاصيل (Details Modal) - لم يتغير */
+/* ================================================= */
+
+.details-modal-overlay {
+    /* تأكد من أن هذا التنسيق ينطبق على كل من authModalOverlay و colorPickerModalOverlay */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); 
+    z-index: 2000; 
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+    overflow-y: auto; 
+}
+
+.details-modal-overlay.active {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.details-page {
+    background: var(--bg-body);
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh; 
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    overflow: hidden; 
+    transform: scale(0.9);
+    transition: transform 0.4s ease-in-out;
+    margin: 20px 0;
+}
+
+.details-modal-overlay.active .details-page {
+    transform: scale(1);
+}
+
+.details-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.details-header {
+    position: relative;
+    background-color: var(--secondary);
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+    box-shadow: inset 0 -100px 50px rgba(0, 0, 0, 0.9);
+}
+
+.details-backdrop-container {
+    position: absolute;
+    top: 20px; 
+    left: 20px;
+    right: 20px;
+    bottom: 20px; 
+    border-radius: 15px; 
+    overflow: hidden;
+    box-shadow: 0 0 0 5px var(--primary), 0 0 0 10px rgba(230, 0, 35, 0.4); 
+}
+
+.details-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px) brightness(0.7); 
+    opacity: 1;
+    transition: all 0.5s ease; 
+}
+
+@keyframes rain-effect {
+    0% { top: -100px; opacity: 0; }
+    5% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { top: calc(100% + 100px); opacity: 0; }
+}
+
+.details-backdrop-container::after,
+.details-backdrop-container::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 2px; 
+    height: 2px;
+    background: transparent;
+    z-index: 5;
+    opacity: 0;
+}
+
+.details-backdrop-container::after {
+    box-shadow: 
+        100px 0px 0 var(--primary-light),
+        150px 200px 0 var(--primary),
+        300px 400px 0 var(--primary-light),
+        450px 100px 0 var(--primary),
+        600px 500px 0 var(--primary-light),
+        800px 100px 0 var(--primary),
+        950px 300px 0 var(--primary-light),
+        1000px 700px 0 var(--primary),
+        1200px 200px 0 var(--primary-light);
+    animation: rain-effect 4s linear infinite; 
+    animation-delay: 0s; 
+}
+.details-backdrop-container::before {
+    box-shadow: 
+        50px 0px 0 var(--primary),
+        250px 600px 0 var(--primary-light),
+        400px 100px 0 var(--primary),
+        550px 400px 0 var(--primary-light),
+        700px 200px 0 var(--primary),
+        850px 650px 0 var(--primary-light),
+        1100px 300px 0 var(--primary);
+    animation: rain-effect 4s linear infinite; 
+    animation-delay: 2s; 
+}
+
+.details-info { position: relative; z-index: 10; color: var(--text-light); }
+.details-title { font-size: 48px; font-weight: 900; color: var(--primary-light); }
+.details-title-en { color: var(--text-gray); }
+
+.close-details-btn {
+    position: absolute; 
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    background: var(--primary);
+    color: var(--primary-light);
+    border: 2px solid var(--primary-light);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details-body {
+    background: var(--bg-body);
+    padding: 50px 70px;
+    margin-top: 0; 
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.trailer-section {
+    display: flex;
+    align-items: flex-start; 
+    gap: 30px; 
+    margin-bottom: 40px;
+}
+
+.details-description-wrapper {
+    flex-grow: 1; 
+}
+
+.details-description {
+    color: var(--text-gray);
+    border-right: 5px solid var(--primary);
+    padding-right: 15px;
+    margin-bottom: 0; 
+}
+
+.action-btns-container {
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+    align-self: flex-start; 
+}
+
+.action-btn-wrapper {
+    position: relative;
+    width: 100px !important; 
+    height: 100px !important; 
+    margin: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-btn-wrapper .episode-heart-bg {
+    color: var(--primary); 
+    opacity: 0.15;
+    font-size: 105px !important; 
+}
+
+.action-btn-wrapper .episode-btn {
+    position: absolute;
+    z-index: 5;
+    font-size: 16px !important; 
+    font-weight: 700;
+    color: var(--primary-light); 
+    background: var(--primary); 
+    border-radius: 50%; 
+    border: 3px solid var(--primary-light);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    width: 85px !important; 
+    height: 85px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.action-btn-wrapper .episode-btn:hover {
+    background: var(--primary-light); 
+    color: var(--primary);
+    transform: translate(-50%, -50%) scale(1.05); 
+}
+
+.action-btn-wrapper .episode-btn:hover i {
+    color: var(--primary);
+}
+
+#starButton.rated {
+    pointer-events: none; 
+    opacity: 0.8;
+    border-color: gold !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+}
+
+#starButton.rated i {
+    color: gold !important; 
+}
+
+#detailsWishlistBtn i.fa-solid {
+    color: var(--primary-light); 
+}
+#detailsWishlistBtn.active i {
+    color: var(--primary-light) !important;
+}
+
+.episodes-section-title {
+    color: var(--primary-light);
+    margin-top: 30px;
+}
+
+.episodes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.episode-btn-wrapper {
+    position: relative;
+    width: 80px; 
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.episode-btn {
+    position: absolute;
+    z-index: 5;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-light);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+}
+
+.episode-heart {
+    position: absolute;
+    font-size: 80px; 
+    color: var(--primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.episode-heart:hover {
+    color: var(--primary-light);
+    transform: scale(1.1);
+}
+
+.episode-heart-bg {
+    color: var(--primary-light); 
+    opacity: 0.1;
+    font-size: 85px;
+}
+
+/* ================================================= */
+/* 6. مشغل الفيديو (Video Player) - التعديل البسيط والجميل */
+/* ================================================= */
+
+.video-player {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000 !important; /* خلفية سوداء خالصة */
+    z-index: 4000;
+    /* للتأكد من أن المشغل لا يتحرك (غير قابل للتكبير/التحريك باليد) */
+    touch-action: none; 
+    user-select: none;
+    
+    flex-direction: column;
+    display: none; 
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.video-player.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* إخفاء العناصر غير المطلوبة في المشغل البسيط */
+.video-player .details-page { 
+    width: 100%; 
+    max-width: 100%;
+    height: 100%; 
+    max-height: 100%;
+    border-radius: 0; 
+    box-shadow: none;
+    background: transparent;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* إخفاء الهيدر وشريط التنقل السفلي لتحقيق البساطة */
+.video-header,
+.episode-navigation {
+    display: none !important;
+}
+
+/* زر الإغلاق العائم الجديد (Minimalist Close Button) */
+.close-player-floating {
+    position: fixed;
+    top: 30px;
+    right: 30px; 
+    z-index: 5000; 
+    background: rgba(230, 0, 35, 0.9);
+    color: var(--primary-light);
+    width: 50px;
+    height: 50px;
+    border-radius: 12px; /* مربع بأطراف مستديرة */
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-light);
+}
+
+.close-player-floating:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: scale(1.05);
+    border-color: var(--primary);
+}
+
+.video-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column; 
+    background: #000;
+    padding: 0; 
+}
+
+/* Video Player Container - تعديل ليناسب حجم الفيديو */
+#video_player_container {
+    width: 100%;
+    /* نسبة 16:9 */
+    padding-bottom: 56.25%; 
+    height: 0; 
+    position: relative;
+    background: #000;
+    max-width: 1200px; 
+    margin: 0 auto; 
+    z-index: 1;
+}
+
+/* لجعل iframe المشغل الجديد يملأ الحاوية بدون حدود أو ظلال كبيرة */
+#video_player_container iframe, .askdiz-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* Episode Description Box - تغيير الموضع والستايل */
+#episodeDescriptionBox {
+    width: 100%; 
+    max-width: 1200px; 
+    margin: 10px auto; 
+    padding: 15px; 
+    background: rgba(30, 30, 30, 0.9); 
+    color: var(--text-gray); 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4); 
+    text-align: right; 
+    border-right: 3px solid var(--primary);
+    font-size: 15px;
+    line-height: 1.6;
+    box-sizing: border-box; 
+    z-index: 10;
+}
+#episodeDescriptionBox h4 {
+    color: var(--primary-light); 
+    margin-bottom: 10px; 
+    font-weight: 700;
+}
+
+/* NEW: CSS for Player Navigation */
+.player-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 10px auto 30px;
+    padding: 0 20px;
+}
+
+.player-navigation button {
+    background: var(--primary);
+    color: var(--primary-light);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-navigation button:hover:not(:disabled) {
+    background: var(--primary-light);
+    color: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.player-navigation button:disabled {
+    background: var(--bg-card);
+    color: var(--text-gray);
+    border-color: var(--text-gray);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ================================================= */
+/* 10. مودال الانتظار الاحترافي (Wait/Redirect Modal) - الزجاجي */
+/* ================================================= */
+
+#waitModal {
+    background: rgba(18, 18, 18, 0.6) !important; 
+    backdrop-filter: blur(5px);
+    /* NEW: Ensure centering for content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#waitModal .wait-content {
+    text-align: center;
+    background: rgba(30, 30, 30, 0.7); 
+    backdrop-filter: blur(10px); 
+    padding: 60px 40px;
+    border-radius: 25px; 
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); 
+    max-width: 450px; 
+    width: 90%;
+    position: relative;
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.5s ease-out;
+    /* NEW: Center content internally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#waitModal.active .wait-content {
+    transform: scale(1);
+}
+
+#waitModal .wait-content h1 {
+    font-size: 28px;
+    color: var(--primary-light);
+    margin-bottom: 25px;
+    font-weight: 700;
+    position: relative;
+    z-index: 10;
+    text-shadow: none; 
+}
+
+/* NEW: تصميم العد التنازلي الزجاجي الأنيق */
+#countdownTimer {
+    font-size: 60px;
+    color: var(--primary-light); 
+    font-weight: 900;
+    margin: 30px auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px; 
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05); 
+    border: 2px solid rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); 
+    position: relative;
+    animation: none; 
+    z-index: 10;
+}
+
+#waitModal #watchButton {
+    padding: 12px 30px;
+    background: var(--primary);
+    color: var(--text-light);
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 12px; 
+    display: none; 
+    opacity: 0;
+    transition: all 0.5s ease;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    transform: translateY(10px);
+}
+
+#waitModal #watchButton.visible {
+    display: inline-block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#waitModal #watchButton:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
+}
+
+/* ================================================= */
+/* 11. مودال تسجيل الدخول/الاشتراك (Professional Style) */
+/* ================================================= */
+
+.auth-modal-content {
+    background: var(--bg-card);
+    width: 90%;
+    max-width: 450px; /* Smaller, focused modal */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border: 3px solid var(--primary); 
+    position: relative;
+    transform: scale(0.9);
+}
+
+.auth-modal-content .section-title {
+    font-size: 28px;
+    text-align: center;
+    border-right: none;
+    padding-right: 0;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.auth-form input {
+    width: 100%; 
+    padding: 15px; 
+    margin-bottom: 15px; 
+    background: var(--secondary); 
+    color: var(--text-light); 
+    border: 1px solid var(--primary); 
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Tajawal', sans-serif;
+    transition: all 0.3s;
+}
+
+.auth-form input:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    background: #252525;
+    outline: none;
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary);
+    color: var(--text-light);
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.auth-form button:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ================================================= */
+/* 12. ميديا كويريز (Mobile Responsiveness) */
+/* ================================================= */
+@media (max-width: 1024px) {
+    /* تطبيق تصميم القائمة الجانبية على وضع الهاتف */
+    .nav-container {
+        padding: 0 20px;
+    }
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -320px; /* إخفاء القائمة خارج الشاشة */
+        width: 300px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--bg-card) 0%, rgba(18,18,18,0.95) 100%);
+        flex-direction: column;
+        padding: 0;
+        box-shadow: -8px 0 25px rgba(0, 0, 0, 0.7);
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1001;
+        align-items: stretch;
+        gap: 0;
+        display: flex;
+        border-radius: 20px 0 0 20px;
+        overflow: hidden;
+    }
+    
+    .nav-links::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 100% 0%, rgba(230,0,35,0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    
+    .nav-links.active {
+        right: 0; /* إظهار القائمة */
+    }
+    
+    /* خلفية داكنة عند فتح القائمة */
+    /* تم تعطيل الـ overlay لمنع التداخل مع التفاعل */
+    .nav-overlay {
+        display: none !important;
+    }
+    }
+    .nav-links a {
+        width: 100%;
+        padding: 18px 25px;
+        border-radius: 0;
+        border-right: 5px solid transparent;
+        transition: all 0.3s ease;
+        margin: 2px 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .nav-links a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+        transition: left 0.6s;
+    }
+    
+    .nav-links a:hover {
+        border-right: 5px solid var(--primary);
+        background: rgba(230, 0, 35, 0.1);
+        transform: translateX(-5px);
+    }
+    
+    .nav-links a:hover::before {
+        left: 100%;
+    }
+    
+    /* تحسين عرض الحساب في الشريط الجانبي */
+    .sidebar-account-section {
+        padding: 25px 0 !important;
+        margin: 0 !important;
+        background: linear-gradient(135deg, var(--secondary) 0%, rgba(22,22,22,0.8) 100%);
+        border-radius: 0 0 20px 20px !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+        position: relative;
+    }
+    
+    .sidebar-account-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    }
+    .menu-toggle {
+        display: flex; /* إظهار زر الهمبرغر */
+    }
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    .social-support-links {
+        margin-top: 30px;
+        padding: 0 20px;
+    }
+    .social-icons-wrapper {
+        justify-content: flex-start;
+    }
+    
+    .search-section {
+        padding: 20px 15px;
+    }
+    .search-container {
+        border-width: 2px;
+    }
+    #seriesSearchInput {
+        padding: 12px 15px;
+        font-size: 16px;
+    }
+    #searchButton {
+        padding: 0 15px;
+        font-size: 18px;
+    }
+    @media (max-width: 768px) {
+        .nav-container {
+            padding: 0 20px;
+        }
+        
+        /* ******************************************* */
+        /* ** START: SIDEBAR/NAV LINKS FIX (MUST BE HERE) ** */
+        /* ******************************************* */
+        
+        .nav-links {
+            display: none; 
+            position: fixed;
+            top: 0;
+            right: -250px; /* مخفية خارج الشاشة */
+            width: 250px;
+            height: 100%;
+            background: var(--bg-card);
+            flex-direction: column;
+            padding-top: 100px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .nav-links.active {
+            right: 0; /* تظهر بالكامل عند إضافة كلاس active */
+            display: flex; /* لضمان ظهور الـ flexbox items */
+        }
+
+        .menu-toggle {
+            display: flex; /* لضمان ظهور زر القائمة */
+        }
+
+        /* ******************************************* */
+        /* ** END: SIDEBAR/NAV LINKS FIX ** */
+        /* ******************************************* */
+
+        .nav-links a {
+            width: 100%;
+            padding: 15px;
+            border-bottom: 1px solid var(--secondary);
+            text-align: center;
+        }
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    .social-support-links {
+        display: block; 
+        padding: 20px 0;
+        text-align: center;
+    }
+    .social-icons-wrapper a:hover {
+        color: var(--primary);
+        background: none;
+        transform: scale(1.1);
+    }
+
+
+    header {
+        padding: 90px 15px;
+        border-radius: 20px;
+    }
+    .main-title {
+        font-size: 48px;
+    }
+    .container {
+        padding: 40px 15px;
+    }
+    .section-title {
+        font-size: 30px;
+        border-right-width: 3px;
+    }
+
+    .series-card {
+        min-height: 350px;
+    }
+    .series-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .search-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .search-heart-card {
+        min-height: 150px;
+        max-width: 170px;
+    }
+    .search-heart-wrapper {
+        width: 150px;
+        height: 150px;
+    }
+    .search-heart {
+        font-size: 150px;
+    }
+    .search-heart-title {
+        font-size: 14px;
+    }
+    .search-heart-rating {
+        font-size: 12px;
+    }
+    .search-heart-info {
+        bottom: -20px;
+    }
+    
+    .details-modal-overlay {
+    /* تأكد من أن هذا التنسيق ينطبق على كل من authModalOverlay و colorPickerModalOverlay */
+        align-items: flex-start;
+    }
+    .details-page {
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    .details-content {
+        max-height: 100vh;
+    }
+    .details-header {
+        height: 300px;
+        padding: 20px;
+    }
+    .details-title {
+        font-size: 36px;
+    }
+    .details-body {
+        padding: 30px 20px;
+    }
+    .trailer-section {
+        flex-direction: column;
+    }
+    .action-btns-container {
+        justify-content: space-around;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .episode-heart {
+        font-size: 70px;
+    }
+    .episode-heart-bg {
+        font-size: 75px;
+    }
+    .action-btn-wrapper {
+        width: 90px !important; 
+        height: 90px !important; 
+    }
+    .action-btn-wrapper .episode-btn {
+        width: 75px !important; 
+        height: 75px !important;
+    }
+    .episodes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 15px;
+    }
+    .episode-btn-wrapper {
+        width: 70px; 
+        height: 70px;
+    }
+    .episode-heart {
+        font-size: 70px; 
+    }
+    .episode-heart-bg {
+        font-size: 75px;
+    }
+    
+    .close-player-floating {
+        top: 15px;
+        right: 15px; 
+    }
+    
+
+    
+    .player-options {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .player-option-btn {
+        min-width: 150px;
+        padding: 15px 20px;
+        font-size: 16px;
+    }
+    
+    .load-more-btn {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+    }
+}
+
+/* إعدادات للهواتف المحمولة - أربع بطاقات */
+@media (max-width: 768px) {
+    .series-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 12px !important;
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    .series-card {
+        min-height: 220px !important;
+    }
+    
+    .series-card:hover {
+        transform: translateY(-5px) !important;
+    }
+}
+
+/* إعدادات للشاشات الصغيرة جداً - أربع بطاقات أيضاً */
+@media (max-width: 480px) {
+    .series-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+        padding: 0 5px;
+    }
+    
+    .series-card {
+        min-height: 200px !important;
+    }
+}
+
+/* إعدادات للشاشات الكبيرة */
+@media (min-width: 1024px) {
+    .series-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        max-width: 900px !important;
+        gap: 35px !important;
+    }
+    
+    .series-card {
+        min-height: 350px !important;
+    }
+}
+
+/* ===============================
+   STYLES FOR ACTORS SECTION
+   =============================== */
+
+/* قسم الممثلين في صفحة التفاصيل */
+.actors-section-title {
+    color: var(--primary-light);
+    font-size: 22px;
+    font-weight: 700;
+    margin: 25px 0 15px 0;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.actors-container {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.actors-scroll-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.actors-grid {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+.actors-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.actors-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.actors-grid::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.actors-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+}
+
+
+
+/* إضافة ظل متحرك للتمرير */
+.actors-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to right, var(--bg-card), transparent);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.actors-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to left, var(--bg-card), transparent);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.actor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 15px;
+    border-radius: 20px;
+    background: var(--bg-card);
+    border: 3px solid var(--border-color);
+    min-width: 120px;
+    flex-shrink: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.actor-card:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary);
+    z-index: 10;
+    position: relative;
+}
+
+.actor-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary);
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.actor-card:hover .actor-avatar {
+    border-color: var(--primary-light);
+    box-shadow: 0 5px 20px rgba(var(--primary-rgb), 0.5);
+}
+
+.actor-name {
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    line-height: 1.2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.actor-role {
+    color: var(--primary-light);
+    font-size: 12px;
+    margin: 0;
+    font-style: italic;
+    font-weight: 500;
+}
+
+
+
+/* نافذة الممثلين المنبثقة */
+.actor-modal-content {
+    max-width: 900px !important;
+    max-height: 90vh !important;
+    overflow-y: auto;
+}
+
+.actor-info-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--bg-card);
+    border-radius: 15px;
+    border: 2px solid var(--border-color);
+}
+
+.actor-avatar-container {
+    flex-shrink: 0;
+}
+
+#actorModalAvatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary);
+}
+
+.actor-basic-info {
+    flex: 1;
+}
+
+.actor-modal-title {
+    color: var(--primary-light);
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+}
+
+.actor-modal-title-en {
+    color: var(--text-secondary);
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 15px 0;
+    font-style: italic;
+}
+
+.actor-bio {
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.actor-series-section-title {
+    color: var(--primary-light);
+    font-size: 22px;
+    font-weight: 700;
+    margin: 25px 0 15px 0;
+    text-align: center;
+    padding: 0 10px;
+}
+
+/* تصميم محدث لصفحة مسلسلات الممثلين */
+.actor-series-section {
+    margin-bottom: 30px;
+}
+
+.actor-series-section-title {
+    color: var(--primary-light);
+    font-size: 22px;
+    font-weight: 700;
+    margin: 25px 0 15px 0;
+    text-align: center;
+    padding: 0 10px;
+}
+
+/* الترتيب الجديد: عرض عادي في الأعلى، تمرير في الأسفل */
+.actor-series-grid-top {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+}
+
+.actor-series-grid-bottom {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+    background: var(--bg-card);
+    border: 2px solid var(--primary);
+    box-shadow: 0 8px 30px var(--shadow-subtle);
+}
+
+.actor-series-slider {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 15px;
+    padding: 20px;
+    min-height: 450px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+}
+
+.actor-series-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.actor-series-slide {
+    flex: 0 0 280px;
+    min-width: 280px;
+    opacity: 0.7;
+    transform: scale(0.85);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+.actor-series-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    pointer-events: auto;
+}
+
+.actor-series-slide:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    filter: blur(0);
+    pointer-events: auto;
+}
+
+/* بطاقة الدخول لموقع الأفلام - مع صورة */
+.actor-movies-site-card {
+    flex: 0 0 320px;
+    min-width: 320px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDMyMCA0NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNDUwIiBmaWxsPSIjNjY2Ii8+Cjx0ZXh0IHg9IjE2MCIgeT0iMTgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IlRhamF3YWwiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIj5zaXRlIHRoZSBGbG9tczwvdGV4dD4KPHR4dCB4PSIxNjAiIHk9IjIyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgZm9udC1mYW1pbHk9IlRhamF3YWwiIGZvbnQtc2l6ZT0iMTYiPuaU2KfYsNir2Yog2YXYtNit2Kog2YYu2LDYsdmI2YYg2YXYudmK2Kkg2YXYsdmJ2YYg2YXYrtmF2YrZhSDwvdGV4dD4KPC9zdmc+');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: var(--card-radius);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 3px solid var(--primary-light);
+}
+
+.actor-movies-site-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--primary) 0%, var(--primary-light) 100%);
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.actor-movies-site-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.actor-movies-site-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border-color: var(--primary-light);
+}
+
+.actor-movies-site-icon {
+    font-size: 56px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.actor-movies-site-title {
+    color: var(--text-light);
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
+}
+
+.actor-movies-site-description {
+    color: var(--text-light);
+    font-size: 15px;
+    opacity: 0.95;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    margin-bottom: 10px;
+}
+
+.actor-movies-site-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-light);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+/* أزرار التنقل للتمرير */
+.actor-series-nav-btn {
+    display: none !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-light);
+    border: 2px solid var(--primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.actor-series-nav-btn:hover {
+    background: var(--primary);
+    color: var(--text-light);
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 8px 25px rgba(230, 0, 35, 0.4);
+}
+
+.actor-series-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.actor-series-nav-btn.prev {
+    right: 15px;
+}
+
+.actor-series-nav-btn.next {
+    left: 15px;
+}
+
+.actor-series-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: translateY(-50%) scale(0.8);
+}
+
+/* تصميم البطاقات الموحد مع الصفحة الرئيسية */
+.actor-series-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 0 10px;
+    margin-bottom: 30px;
+}
+
+.actor-series-card {
+    background: var(--bg-card);
+    border-radius: var(--card-radius);
+    box-shadow: 0 8px 30px var(--shadow-subtle);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 380px; 
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.actor-series-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.actor-series-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.actor-series-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px; 
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: white;
+}
+
+.actor-series-title {
+    color: var(--primary-light);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.actor-series-role {
+    color: var(--text-light);
+    font-size: 14px;
+    margin: 0 0 5px 0;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.actor-series-meta {
+    color: var(--text-gray);
+    font-size: 12px;
+    margin: 8px 0 0 0;
+    opacity: 0.8;
+}
+
+/* إعدادات استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .actors-container {
+        padding: 0 5px;
+    }
+    
+    .actors-grid {
+        gap: 15px;
+    }
+    
+    .actor-card {
+        min-width: 100px;
+        padding: 12px;
+    }
+    
+    .actor-avatar {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .actor-name {
+        font-size: 12px;
+    }
+    
+    .actor-role {
+        font-size: 11px;
+    }
+    
+    .actor-modal-content {
+        max-width: 95vw !important;
+        max-height: 95vh !important;
+    }
+    
+    .actor-info-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    #actorModalAvatar {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .actor-modal-title {
+        font-size: 22px;
+    }
+    
+    .actor-series-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .actor-series-grid-top {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
+    }
+    
+    .actor-series-slider {
+        padding: 15px;
+        min-height: 320px;
+    }
+    
+    .actor-series-slide {
+        flex: 0 0 240px;
+        min-width: 240px;
+    }
+    
+    .actor-movies-site-card {
+        flex: 0 0 250px;
+        min-width: 250px;
+        padding: 20px;
+    }
+    
+    .actor-movies-site-icon {
+        font-size: 36px;
+        margin-bottom: 15px;
+    }
+    
+    .actor-movies-site-title {
+        font-size: 18px;
+    }
+    
+    .actor-movies-site-description {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .actors-container {
+        padding: 0 2px;
+    }
+    
+    .actors-grid {
+        gap: 12px;
+    }
+    
+    .actor-card {
+        min-width: 90px;
+        padding: 10px;
+    }
+    
+    .actor-avatar {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .actor-name {
+        font-size: 11px;
+    }
+    
+    .actor-role {
+        font-size: 10px;
+    }
+    
+    .actor-series-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .actor-series-image {
+        height: 100px;
+    }
+}
+
+/* ===============================
+   تصميمات محدثة لمسلسلات الممثلين - التحديث النهائي
+   =============================== */
+
+/* صف مسلسلات الممثل */
+.actor-series-row {
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 20px 0;
+}
+
+/* تحديث السلايدر */
+.actor-series-row .actor-series-slider {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px 0;
+    width: 100%;
+    justify-content: flex-start;
+    min-height: auto !important;
+}
+
+/* ========== نظام Carousel البسيط للبطاقات (مثل الممثلين) ========== */
+
+.series-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.series-carousel-scroll {
+    display: flex;
+    gap: 15px;
+    padding: 10px 5px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+.series-carousel-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.series-carousel-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.series-carousel-scroll::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.series-carousel-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+}
+
+/* البطاقات الصغيرة */
+.small-series-card {
+    flex: 0 0 160px;
+    min-width: 160px;
+    height: 240px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.small-series-card:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+.small-card-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.small-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.small-series-card:hover .small-card-image {
+    transform: scale(1.1);
+}
+
+.small-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 70%, transparent 100%);
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.small-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.small-card-year {
+    font-size: 11px;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+.small-card-rating {
+    font-size: 12px;
+    color: var(--primary-light);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.small-card-rating i {
+    color: var(--primary);
+}
+
+/* بطاقة الأفلام الصغيرة */
+.small-movie-card .small-card-overlay {
+    background: linear-gradient(135deg, rgba(230, 0, 35, 0.3) 0%, rgba(0, 0, 0, 0.9) 100%);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.small-movie-card:hover {
+    transform: translateY(-10px) scale(1.08);
+    box-shadow: 0 10px 30px rgba(230, 0, 35, 0.5);
+}
+
+.movie-icon {
+    font-size: 40px;
+    color: var(--primary);
+    margin-bottom: 10px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.small-card-subtitle {
+    font-size: 11px;
+    color: var(--primary-light);
+    margin: 0;
+    font-weight: 600;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* تصميم متجاوب */
+@media (max-width: 768px) {
+    .small-series-card {
+        flex: 0 0 140px;
+        min-width: 140px;
+        height: 210px;
+    }
+    
+    .small-card-title {
+        font-size: 13px;
+    }
+    
+    .movie-icon {
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .small-series-card {
+        flex: 0 0 120px;
+        min-width: 120px;
+        height: 180px;
+    }
+    
+    .small-card-title {
+        font-size: 12px;
+    }
+    
+    .small-card-year {
+        font-size: 10px;
+    }
+    
+    .small-card-rating {
+        font-size: 11px;
+    }
+    
+    .movie-icon {
+        font-size: 30px;
+    }
+    
+    .series-carousel-scroll {
+        gap: 10px;
+    }
+}
+
+/* ========== نهاية نظام Carousel البسيط ========== */
+
+
+/* بطاقات المسلسلات في صف الممثل - حجم متوسط ومتناسق */
+.actor-series-row .series-card {
+    flex: 0 0 220px !important;
+    width: 220px !important;
+    min-width: 220px !important;
+    max-width: 220px !important;
+    min-height: 330px !important;
+    margin-bottom: 20px;
+}
+
+/* بطاقة موقع الأفلام الاحترافية */
+.actor-movies-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.actor-movies-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(230, 0, 35, 0.3) 0%, rgba(255, 215, 0, 0.3) 100%);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.actor-movies-card:hover::before {
+    opacity: 1;
+}
+
+.actor-movies-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 20px 60px rgba(230, 0, 35, 0.5);
+}
+
+.actor-movies-card .series-image {
+    filter: brightness(0.6);
+    transition: all 0.5s ease;
+}
+
+.actor-movies-card:hover .series-image {
+    filter: brightness(0.8) saturate(1.2);
+    transform: scale(1.1);
+}
+
+.actor-movies-card .series-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+}
+
+.actor-movies-card .series-title {
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    to {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+}
+
+/* تحديث أزرار التنقل */
+.actor-series-row .actor-series-nav-btn {
+    display: none !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-light);
+    border: 2px solid var(--primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.actor-series-row .actor-series-nav-btn:hover {
+    background: var(--primary);
+    color: var(--text-light);
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 8px 25px rgba(230, 0, 35, 0.4);
+}
+
+.actor-series-row .actor-series-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.actor-series-row .actor-series-nav-btn.prev {
+    right: 5px;
+}
+
+.actor-series-row .actor-series-nav-btn.next {
+    left: 5px;
+}
+
+/* إخفاء العناصر القديمة */
+.actor-series-grid-top,
+.actor-series-grid-bottom,
+.actor-series-slide,
+.actor-movies-site-card {
+    display: none !important;
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .actor-series-row .actor-series-slider {
+        padding: 10px 0;
+        gap: 15px;
+    }
+    
+    .actor-series-row .series-card {
+        flex: 0 0 200px !important;
+        width: 200px !important;
+        min-width: 200px !important;
+        max-width: 200px !important;
+        min-height: 300px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .actor-series-row .actor-series-slider {
+        padding: 10px 0;
+        gap: 12px;
+    }
+    
+    .actor-series-row .series-card {
+        flex: 0 0 180px !important;
+        width: 180px !important;
+        min-width: 180px !important;
+        max-width: 180px !important;
+        min-height: 270px !important;
+    }
+}
+
+
+/* ========== تعديلات صفحة مسلسلات الممثلين ========== */
+
+/* منع تمرير الصفحة أفقياً - فقط البطاقات تتحرك */
+body {
+    overflow-x: hidden;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.actor-modal-content {
+    overflow-x: hidden;
+}
+
+/* تصميم محدث لصفحة مسلسلات الممثلين */
+.actor-series-section {
+    margin-bottom: 30px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.actor-series-section-title {
+    color: var(--primary-light);
+    font-size: 22px;
+    font-weight: 700;
+    margin: 25px 0 15px 0;
+    text-align: center;
+    padding: 0 10px;
+}
+
+/* صف مسلسلات الممثل */
+.actor-series-row {
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    overflow-x: hidden;
+}
+
+/* سلايدر المسلسلات في كل صف */
+.actor-series-slider {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px 0;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+
+
+/* بطاقات المسلسلات في صف الممثل - حجم متوسط ومتناسق */
+.actor-series-slider .series-card {
+    flex: 0 0 220px;
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+    min-height: 330px;
+    margin-bottom: 20px;
+}
+
+/* بطاقة موقع الأفلام الاحترافية */
+.actor-movies-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.actor-movies-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(230, 0, 35, 0.3) 0%, rgba(255, 215, 0, 0.3) 100%);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.actor-movies-card:hover::before {
+    opacity: 1;
+}
+
+.actor-movies-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 20px 60px rgba(230, 0, 35, 0.5);
+}
+
+.actor-movies-card .series-image {
+    filter: brightness(0.6);
+    transition: all 0.5s ease;
+}
+
+.actor-movies-card:hover .series-image {
+    filter: brightness(0.8) saturate(1.2);
+    transform: scale(1.1);
+}
+
+.actor-movies-card .series-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+}
+
+.actor-movies-card .series-title {
+    font-size: 22px;
+    font-weight: 900;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    to {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+}
+
+/* أزرار التنقل للتمرير */
+.actor-series-nav-btn {
+    display: none !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-light);
+    border: 2px solid var(--primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.actor-series-nav-btn:hover {
+    background: var(--primary);
+    color: var(--text-light);
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 8px 25px rgba(230, 0, 35, 0.4);
+}
+
+.actor-series-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.actor-series-nav-btn.prev {
+    right: 5px;
+}
+
+.actor-series-nav-btn.next {
+    left: 5px;
+}
+
+.actor-series-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: translateY(-50%) scale(0.8);
+}
+
+/* إخفاء التصاميم القديمة */
+.actor-series-grid-top,
+.actor-series-grid-bottom,
+.actor-series-slide,
+.actor-movies-site-card,
+.actor-movies-site-icon,
+.actor-movies-site-title,
+.actor-movies-site-description,
+.actor-movies-site-badge {
+    display: none !important;
+}
+
+/* إعدادات استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .actor-series-slider {
+        padding: 10px 0;
+        gap: 15px;
+    }
+    
+    .actor-series-slider .series-card {
+        flex: 0 0 250px;
+        min-width: 250px;
+        min-height: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .actor-series-slider {
+        padding: 10px 0;
+        gap: 12px;
+    }
+    
+    .actor-series-slider .series-card {
+        flex: 0 0 200px;
+        min-width: 200px;
+        min-height: 280px;
+    }
+}
+
+
+/* ================================================= */
+/* زر العودة إلى الأعلى - Scroll to Top Button      */
+/* ================================================= */
+
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 80px; /* رفع الزر للأعلى */
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 8px 25px rgba(230, 0, 35, 0.4), 
+                0 0 20px rgba(255, 215, 0, 0.3),
+                inset 0 -2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 24px;
+    animation: slideInFromBottom 0.5s ease-out, pulseGlow 2s ease-in-out infinite;
+}
+
+#scrollToTopBtn:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 15px 40px rgba(230, 0, 35, 0.6), 
+                0 0 35px rgba(255, 215, 0, 0.5),
+                inset 0 -2px 10px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+}
+
+#scrollToTopBtn:active {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(230, 0, 35, 0.5), 
+                0 0 25px rgba(255, 215, 0, 0.4);
+}
+
+#scrollToTopBtn i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+/* حركة ظهور الزر من الأسفل */
+@keyframes slideInFromBottom {
+    from {
+        bottom: -70px;
+        opacity: 0;
+    }
+    to {
+        bottom: 80px; /* متوافق مع الموضع الجديد */
+        opacity: 1;
+    }
+}
+
+/* حركة توهج نابضة للزر */
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(230, 0, 35, 0.4), 
+                    0 0 20px rgba(255, 215, 0, 0.3),
+                    inset 0 -2px 10px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 10px 35px rgba(230, 0, 35, 0.6), 
+                    0 0 30px rgba(255, 215, 0, 0.5),
+                    inset 0 -2px 10px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* حركة السهم للأعلى */
+@keyframes arrowBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    #scrollToTopBtn {
+        width: 50px;
+        height: 50px;
+        bottom: 70px; /* رفع الزر للأعلى */
+        right: 20px;
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    #scrollToTopBtn {
+        width: 45px;
+        height: 45px;
+        bottom: 60px; /* رفع الزر للأعلى */
+        right: 15px;
+        font-size: 20px;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   أنماط ترويجات المشغلات - Player Promotions Styles
+   ═══════════════════════════════════════════════════════ */
+
+/* 1. Pre-Roll Promo (ترويج قبل بدء التشغيل) */
+.preroll-promo-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.preroll-promo-overlay.active {
+    opacity: 1;
+}
+
+.preroll-promo-content {
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+}
+
+.preroll-video-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.preroll-gradient-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(230, 0, 35, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+    opacity: 0.5;
+}
+
+.preroll-icon {
+    font-size: 80px;
+    color: #fff;
+    margin-bottom: 20px;
+    animation: prerollIconPulse 2s ease-in-out infinite;
+}
+
+/* صورة Pre-Roll الترويجية */
+.preroll-image-container {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preroll-promo-image {
+    max-width: 100%;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: prerollImageFloat 3s ease-in-out infinite;
+    object-fit: contain;
+}
+
+@keyframes prerollImageFloat {
+    0%, 100% { 
+        transform: translateY(0px) scale(1); 
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+    50% { 
+        transform: translateY(-10px) scale(1.02); 
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+}
+
+@keyframes prerollIconPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.preroll-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.preroll-description {
+    font-size: 18px;
+    color: #f0f0f0;
+    margin-bottom: 30px;
+}
+
+.preroll-cta-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(230, 0, 35, 0.4);
+    margin-bottom: 20px;
+}
+
+.preroll-cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(230, 0, 35, 0.6);
+}
+
+.preroll-skip-container {
+    margin-top: 20px;
+}
+
+.preroll-skip-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.preroll-skip-btn:disabled {
+    opacity: 0.6;
+}
+
+.preroll-skip-btn.can-skip {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.preroll-skip-btn.can-skip:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.preroll-timer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.preroll-timer-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+    transition: width 5s linear;
+}
+
+/* 2. Mid-Roll Banner (بانر أثناء المشاهدة) */
+.midroll-promo-banner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, rgba(230, 0, 35, 0.95) 0%, rgba(255, 140, 0, 0.95) 100%);
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 100;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    max-width: 400px;
+}
+
+.midroll-promo-banner.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.midroll-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.midroll-icon {
+    font-size: 32px;
+    color: #fff;
+    animation: midrollIconSpin 3s linear infinite;
+}
+
+@keyframes midrollIconSpin {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+}
+
+.midroll-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.midroll-text strong {
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.midroll-text span {
+    font-size: 13px;
+    color: #f0f0f0;
+}
+
+.midroll-btn {
+    background: #fff;
+    color: var(--primary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.midroll-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.midroll-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.midroll-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+/* 3. Player Overlay Promo (شريط صغير أثناء المشاهدة) */
+.player-overlay-promo {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+    border-radius: 50px;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 99;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+}
+
+.player-overlay-promo.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.player-overlay-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.overlay-text {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.overlay-text i {
+    font-size: 20px;
+}
+
+.overlay-cta {
+    background: #fff;
+    color: #667eea;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.overlay-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.overlay-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.overlay-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+/* 4. Post-Roll Promo (ترويج بعد الانتهاء) */
+.postroll-promo-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.postroll-promo-overlay.active {
+    opacity: 1;
+}
+
+.postroll-promo-content {
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    border-radius: 20px;
+    padding: 50px 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    border: 2px solid rgba(230, 0, 35, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.postroll-icon {
+    font-size: 70px;
+    color: var(--primary);
+    margin-bottom: 20px;
+    animation: postrollIconBounce 1s ease-in-out infinite;
+}
+
+@keyframes postrollIconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.postroll-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.postroll-description {
+    font-size: 16px;
+    color: #b0b0b0;
+    margin-bottom: 30px;
+}
+
+.postroll-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.postroll-cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    border: none;
+    padding: 15px 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(230, 0, 35, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.postroll-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(230, 0, 35, 0.6);
+}
+
+.postroll-close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.postroll-close-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Responsive للترويجات */
+@media (max-width: 768px) {
+    .midroll-promo-banner {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        padding: 12px 15px;
+    }
+    
+    .midroll-text strong {
+        font-size: 14px;
+    }
+    
+    .midroll-text span {
+        font-size: 12px;
+    }
+    
+    .midroll-btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+    
+    .player-overlay-promo {
+        bottom: 70px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        border-radius: 15px;
+    }
+    
+    .player-overlay-promo.show {
+        transform: none;
+    }
+    
+    .overlay-text {
+        font-size: 13px;
+    }
+    
+    .preroll-title {
+        font-size: 24px;
+    }
+    
+    .preroll-description {
+        font-size: 16px;
+    }
+    
+    .preroll-video-container {
+        padding: 40px 25px;
+    }
+    
+    .preroll-promo-image {
+        max-height: 250px;
+    }
+    
+    .postroll-title {
+        font-size: 24px;
+    }
+    
+    .postroll-buttons {
+        flex-direction: column;
+    }
+    
+    .postroll-cta,
+    .postroll-close-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .preroll-icon {
+        font-size: 60px;
+    }
+    
+    .preroll-promo-image {
+        max-height: 200px;
+        border-radius: 10px;
+    }
+    
+    .preroll-title {
+        font-size: 20px;
+    }
+    
+    .preroll-description {
+        font-size: 14px;
+    }
+    
+    .preroll-cta-btn {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+    
+    .midroll-icon {
+        font-size: 24px;
+    }
+    
+    .overlay-text {
+        font-size: 12px;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .postroll-icon {
+        font-size: 50px;
+    }
+    
+    .postroll-promo-content {
+        padding: 35px 25px;
+    }
+}
+
+
+/* ===============================
+   تصميم صفحة الممثلين الرئيسية
+   =============================== */
+
+.all-actors-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* صف الممثلين */
+.actors-row {
+    position: relative;
+    margin-bottom: 40px;
+    padding: 10px 0;
+}
+
+.actors-row-scroll {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) rgba(255, 255, 255, 0.1);
+    padding: 15px 5px;
+    cursor: grab;
+    user-select: none;
+}
+
+.actors-row-scroll:active {
+    cursor: grabbing;
+}
+
+.actors-row-scroll::-webkit-scrollbar {
+    height: 10px;
+}
+
+.actors-row-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.actors-row-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    border-radius: 10px;
+    border: 2px solid var(--bg-card);
+}
+
+.actors-row-scroll::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, var(--primary-light), var(--primary));
+}
+
+/* بطاقة الممثل الجديدة */
+.actor-card-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 20px 15px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(var(--primary-rgb), 0.08) 100%);
+    border: 3px solid transparent;
+    min-width: 160px;
+    max-width: 160px;
+    flex-shrink: 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.actor-card-main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(var(--primary-rgb), 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.actor-card-main:hover::before {
+    opacity: 1;
+}
+
+.actor-card-main:hover {
+    transform: translateY(-12px) scale(1.08);
+    box-shadow: 0 20px 50px rgba(var(--primary-rgb), 0.35);
+    border-color: var(--primary);
+}
+
+/* صورة الممثل */
+.actor-card-main .actor-avatar-main {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--primary);
+    margin-bottom: 15px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.actor-card-main:hover .actor-avatar-main {
+    border-color: var(--primary-light);
+    box-shadow: 0 10px 35px rgba(var(--primary-rgb), 0.6);
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* اسم الممثل */
+.actor-card-main .actor-name-main {
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0 0 5px 0;
+    line-height: 1.3;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* الاسم بالإنجليزية */
+.actor-card-main .actor-name-en {
+    color: var(--primary-light);
+    font-size: 12px;
+    margin: 0;
+    font-style: italic;
+    font-weight: 600;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* تأثيرات إضافية عند التمرير */
+.actor-card-main::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(var(--primary-rgb), 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.actor-card-main:hover::after {
+    opacity: 1;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 1200px) {
+    .all-actors-container {
+        padding: 0 15px;
+    }
+    
+    .actors-row-scroll {
+        gap: 20px;
+    }
+    
+    .actor-card-main {
+        min-width: 145px;
+        max-width: 145px;
+        padding: 18px 12px;
+    }
+    
+    .actor-card-main .actor-avatar-main {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .all-actors-container {
+        padding: 0 10px;
+    }
+    
+    .actors-row {
+        margin-bottom: 30px;
+    }
+    
+    .actors-row-scroll {
+        gap: 15px;
+        padding: 12px 3px;
+    }
+    
+    .actor-card-main {
+        min-width: 130px;
+        max-width: 130px;
+        padding: 15px 10px;
+        border-radius: 20px;
+    }
+    
+    .actor-card-main .actor-avatar-main {
+        width: 85px;
+        height: 85px;
+        border-width: 4px;
+    }
+    
+    .actor-card-main .actor-name-main {
+        font-size: 13px;
+    }
+    
+    .actor-card-main .actor-name-en {
+        font-size: 11px;
+    }
+    
+    .actor-card-main:hover {
+        transform: translateY(-8px) scale(1.05);
+    }
+}
+
+@media (max-width: 480px) {
+    .all-actors-container {
+        padding: 0 5px;
+    }
+    
+    .actors-row {
+        margin-bottom: 25px;
+    }
+    
+    .actors-row-scroll {
+        gap: 12px;
+        padding: 10px 2px;
+    }
+    
+    .actor-card-main {
+        min-width: 115px;
+        max-width: 115px;
+        padding: 12px 8px;
+        border-radius: 18px;
+    }
+    
+    .actor-card-main .actor-avatar-main {
+        width: 75px;
+        height: 75px;
+        border-width: 3px;
+    }
+    
+    .actor-card-main .actor-name-main {
+        font-size: 12px;
+    }
+    
+    .actor-card-main .actor-name-en {
+        font-size: 10px;
+    }
+    
+    .actors-row-scroll::-webkit-scrollbar {
+        height: 6px;
+    }
+}
+
+/* أنيميشن ظهور البطاقات */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.actor-card-main {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* تأخير الأنيميشن لكل بطاقة */
+.actor-card-main:nth-child(1) { animation-delay: 0.05s; }
+.actor-card-main:nth-child(2) { animation-delay: 0.1s; }
+.actor-card-main:nth-child(3) { animation-delay: 0.15s; }
+.actor-card-main:nth-child(4) { animation-delay: 0.2s; }
+.actor-card-main:nth-child(5) { animation-delay: 0.25s; }
+.actor-card-main:nth-child(6) { animation-delay: 0.3s; }
+.actor-card-main:nth-child(7) { animation-delay: 0.35s; }
+.actor-card-main:nth-child(8) { animation-delay: 0.4s; }
+.actor-card-main:nth-child(9) { animation-delay: 0.45s; }
+.actor-card-main:nth-child(10) { animation-delay: 0.5s; }
