@@ -4,15 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aşk diz - أفضل المسلسلات التركية المترجمة</title>
-    <!-- =======  وسوم Open Graph لمشاركة الرابط ======= -->
+
+    <meta name="description" content="شاهد أجمل وأحدث المسلسلات التركية المترجمة بجودة عالية، مع معلومات كاملة عن الممثلين والحلقات.">
+    
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://askdizone1.vercel.app/"> 
+    
+    <meta name="google-site-verification" content="z-14i-5oDlBkotH3ZxScqml_ZFgNHTa3pSDFRG1oVts" />
+    
     <meta property="og:title" content="Aşk diz - أفضل المسلسلات التركية المترجمة">
     <meta property="og:description" content="شاهد أجمل وأحدث المسلسلات التركية المترجمة بجودة عالية، مع معلومات كاملة عن الممثلين والحلقات.">
     <meta property="og:image" content="https://wulaopnlopmcwfdritjj.supabase.co/storage/v1/object/public/images/2253b6c9-dc6e-4aed-881b-2e787bafd0b2/1763538276973_79tva.png">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_AR">
-    <meta property="og:url" content="https://askdiz.github.io/A-kdiznew/#home">
+    <meta property="og:url" content="https://askdizone1.vercel.app/"> 
 
-    <!-- ======= Twitter Card ======= -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Aşk diz - أفضل المسلسلات التركية المترجمة">
     <meta name="twitter:description" content="شاهد أحدث المسلسلات التركية المترجمة – تحديث يومي للمحتوى وفرة من المعلومات عن كل مسلسل.">
@@ -22,7 +29,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
-    <!-- منع التخزين المؤقت -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -56,7 +62,6 @@
                 <div class="logo-subtitle" style="font-size: 13px; color: var(--text-gray); font-weight: 500;">المسلسلات التركية</div>
             </div>
             <div class="nav-links" id="navLinks">
-                <!-- أيقونة تسجيل الحساب في أعلى القائمة الجانبية -->
                 <div class="sidebar-account-section">
                     <button id="accountButton" onclick="openAuthModal()" title="تسجيل الدخول"></button>
                     <div class="account-info" id="accountInfo" style="display: none;">
@@ -73,7 +78,6 @@
                 <a href="#" id="favoritesNavBtn" onclick="checkAuthAndRenderFavorites();"><i class="fas fa-heart-circle"></i> المفضلة</a>
                 <a href="#" id="navColorPicker" onclick="openColorPickerModal();"><i class="fas fa-palette"></i> تغيير اللون</a>
                 
-                <!-- أزرار دعم الموقع المرتبة في الأسفل -->
                 <div class="support-buttons">
                     <a href="https://askdiz-video-vault-23702.lovable.app/" target="_blank" title="Aşk diz tyob"><i class="fas fa-link"></i> رابط الموقع</a>
                     <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> فيسبوك</a>
@@ -109,7 +113,6 @@
         <h2 class="section-title"><i class="fas fa-tv"></i> المسلسلات المترجمة</h2>
         <div class="series-grid" id="seriesGrid"></div>
         
-        <!-- قسم زر تصفح المزيد -->
         <div class="load-more-section" id="loadMoreSection" style="display: none;">
             <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreSeries()">
                 <i class="fas fa-plus-circle"></i>
@@ -118,12 +121,10 @@
         </div>
     </section>
 
-    <!-- قسم الممثلين -->
     <section class="container" id="actors" style="display: none;">
         <h2 class="section-title"><i class="fas fa-users"></i> جميع الممثلين</h2>
         <div class="all-actors-container" id="allActorsContainer">
-            <!-- سيتم ملء الممثلين هنا بواسطة JavaScript -->
-        </div>
+            </div>
     </section>
 
     <section class="container" id="favorites" style="display: none;">
@@ -196,11 +197,9 @@
                         </div>
                     </div>
                     
-                    <!-- قسم الممثلين -->
                     <h3 class="actors-section-title"><i class="fas fa-users"></i> الممثلين</h3>
                     <div class="actors-grid" id="actorsGrid">
-                        <!-- سيتم ملء الممثلين هنا بواسطة JavaScript -->
-                    </div>
+                        </div>
                     
                     <h3 class="episodes-section-title"><i class="fas fa-list-ol"></i> الحلقات</h3>
                     <div class="episodes-grid" id="episodesGrid">
@@ -233,7 +232,6 @@
         </div>
     </div>
 
-    <!-- نافذة اختيار المشغل -->
     <div class="player-selection-overlay" id="playerSelectionOverlay">
         <div class="player-selection-content">
             <button class="close-player-selection" onclick="closePlayerSelection()">
@@ -261,8 +259,7 @@
 	                </button>
 	                <h2 class="section-title" style="font-size: 24px; margin-bottom: 20px;"><i class="fas fa-palette"></i> اختر لون الموقع</h2>
 	                <div class="color-picker-grid" id="colorPickerGrid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 0 10px;">
-	                    <!-- Colors will be injected here by app.js -->
-	                </div>
+	                    </div>
 	            </div>
 	        </div>
 	    </div>
@@ -284,7 +281,6 @@
         </div>
     </div>
 
-    <!-- نافذة الممثلين المنبثقة -->
     <div class="details-modal-overlay" id="actorModalOverlay">
         <div class="details-page actor-modal-content">
             <div class="details-content">
@@ -305,8 +301,7 @@
                 
                 <h3 class="actor-series-section-title"><i class="fas fa-tv"></i> المسلسلات التي شارك بها</h3>
                 <div class="actor-series-grid" id="actorSeriesGrid">
-                    <!-- سيتم ملء المسلسلات هنا بواسطة JavaScript -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -319,10 +314,8 @@
     <script src="app.js"></script>
     <script src="promotions.js"></script>
     
-    <!-- الشريط الاجتماعي الإعلاني -->
     <script type='text/javascript' src='//pl28107424.effectivegatecpm.com/b4/97/ea/b497eadc05670fa0e3c7de0580ea11a7.js'></script>
     
-    <!-- شريط حقوق الطبع والنشر -->
     <div class="footer-bar">
         &copy; Aşk diz 2025. جميع الحقوق محفوظة.
     </div>
