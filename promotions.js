@@ -33,11 +33,11 @@ const PROMO_SETTINGS = {
     },
     searchPromo: {
         enabled: true,
-        everyNResults: 6 // بطاقة ترويجية كل 6 نتائج بحث
+        everyNResults: 2 // بطاقة ترويجية كل 6 نتائج بحث
     },
     topBanner: {
         enabled: true,
-        showAfterScroll: 300 // يظهر بعد التمرير 300px
+        showAfterScroll: 150 // يظهر بعد التمرير 300px
     },
     sideButton: {
         enabled: true
@@ -54,8 +54,8 @@ const PROMO_SETTINGS = {
         },
         midRoll: {
             enabled: true,
-            showAfter: 180, // يظهر بعد 3 دقائق (180 ثانية)
-            duration: 8000 // يبقى 8 ثوانٍ
+            showAfter: 500, // يظهر بعد 3 دقائق (180 ثانية)
+            duration: 1000 // يبقى 8 ثوانٍ
         },
         postRoll: {
             enabled: true,
@@ -86,7 +86,7 @@ class FloatingHeartPromo {
         // بدء العرض بعد 3 ثوانٍ من تحميل الصفحة
         setTimeout(() => {
             this.startRandomShow();
-        }, 100000);
+        }, 10000000);
     }
 
     createHeart() {
@@ -102,9 +102,9 @@ class FloatingHeartPromo {
                     <span class="heart-subtitle">انقر هنا!</span>
                 </div>
                 <div class="heart-sparkles">
-                    <span>✨</span>
-                    <span>✨</span>
-                    <span>✨</span>
+                    <span>❤️‍🩹</span>
+                    <span>❤️‍🩹</span>
+                    <span>❤️‍🩹</span>
                 </div>
             </div>
         `;
@@ -139,7 +139,7 @@ class FloatingHeartPromo {
         // إضافة كلاس للظهور بعد فترة قصيرة
         setTimeout(() => {
             this.heartElement.classList.add('show');
-        }, 100);
+        }, 10000);
 
         // إخفاء تلقائي
         setTimeout(() => {
@@ -307,7 +307,7 @@ class FloatingSideButton {
         // إظهار بعد ثانية
         setTimeout(() => {
             button.classList.add('show');
-        }, 100);
+        }, 1000);
     }
 }
 
@@ -433,8 +433,8 @@ class WelcomeModal {
         
         // تسجيل أنها ظهرت
         setTimeout(() => {
-            localStorage.setItem('welcomeModalShown', 'true');
-        }, 1000);
+            localStorage.setItem('welcomeModalShown', 'false');
+        }, 10000);
     }
 }
 
@@ -844,8 +844,8 @@ setInterval(() => {
     scrollingBanner.show(); // يظهر الشريط
     setTimeout(() => {
         scrollingBanner.hide(); // بعد دقيقة يختفي
-    }, 8000); // 60000ms = 1 دقيقة
-}, 16000); // كل دورتين: دقيقة ظهور + دقيقة اختفاء // يمكن تفعيله عند الحاجة
+    }, 10000); // 60000ms = 1 دقيقة
+}, 20000); // كل دورتين: دقيقة ظهور + دقيقة اختفاء // يمكن تفعيله عند الحاجة
     
     console.log('✅ نظام الترويجات جاهز!');
 }
