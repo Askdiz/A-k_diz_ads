@@ -960,7 +960,7 @@ function playMainPlayer() {
     if (videoInfo.episodeNum > 0 && series.episodeDetails && series.episodeDetails[videoInfo.episodeNum - 1]) {
         descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>${series.episodeDetails[videoInfo.episodeNum - 1]}</p>`;
     } else if (videoInfo.episodeNum === 0) {
-        descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>شاهد العرض التشويقي الرسمي للمسلسل.</p>`;
+        descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>لا تفوّت فرصة متابعة العرض التشويقي الرسمي للمسلسل، واستكشف لمحة مثيرة عن الأحداث والشخصيات والصراعات التي تنتظرك في كل حلقة، واستعد لتجربة مشاهدة مشوقة مليئة بالإثارة والتشويق.</p>`;
     } else {
         descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>لا يتوفر وصف لهذه الحلقة.</p>`;
     }
@@ -1014,7 +1014,7 @@ function playRumblePlayer() {
     if (videoInfo.episodeNum > 0 && series.episodeDetails && series.episodeDetails[videoInfo.episodeNum - 1]) {
         descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>${series.episodeDetails[videoInfo.episodeNum - 1]}</p>`;
     } else if (videoInfo.episodeNum === 0) {
-        descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>شاهد العرض التشويقي الرسمي للمسلسل.</p>`;
+        descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>لا تفوّت فرصة متابعة العرض التشويقي الرسمي للمسلسل، واستكشف لمحة مثيرة عن الأحداث والشخصيات والصراعات التي تنتظرك في كل حلقة، واستعد لتجربة مشاهدة مشوقة مليئة بالإثارة والتشويق.</p>`;
     } else {
         descriptionHTML = `<h4>${series.title} - ${videoInfo.episodeName}:</h4><p>لا يتوفر وصف لهذه الحلقة.</p>`;
     }
